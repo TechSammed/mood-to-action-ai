@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+arvya_env/
+.venv/
+arvya_env
+
+# VS Code
+.vscode/
+
+# Data (optional)
+data/
