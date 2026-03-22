@@ -128,7 +128,7 @@ def generate_error_analysis(
     lines.append("5. **stress/energy conflict is real in this dataset.** A user can write calmly but have stress=5. Fix: explicit conflict feature.\n\n")
 
     report = "".join(lines)
-    with open("ERROR_ANALYSIS.md", "w") as f:
+    with open("ERROR_ANALYSIS.md", "w", encoding="utf-8") as f:
         f.write(report)
     return report
 

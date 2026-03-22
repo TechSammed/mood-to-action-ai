@@ -34,4 +34,4 @@ def load_data(path: str) -> pd.DataFrame:
 def save_predictions(df: pd.DataFrame, path: str):
     os.makedirs(os.path.dirname(path) if os.path.dirname(path) else ".", exist_ok=True)
     df.to_csv(path, index=False)
-    print(f"      Saved → {path}")
+    print(f"Saved→{path}")

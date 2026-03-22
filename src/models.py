@@ -4,7 +4,7 @@ src/models.py
 XGBoost models for emotional state (classification) and intensity (regression).
 
 emotional_state → XGBoostClassifier + CalibratedClassifierCV (isotonic)
-intensity (1–5) → XGBoostRegressor  treated as ordinal regression
+intensity (1-5) → XGBoostRegressor  treated as ordinal regression
 """
 
 import numpy as np
