@@ -1,0 +1,196 @@
+================================================================
+MENTAL STATE GUIDANCE SYSTEM — TEST CASES
+================================================================
+
+----------------------------------------------------------------
+TEST 1 — Expected State: CALM
+----------------------------------------------------------------
+Reflection : the ocean sounds completely settled my mind. i feel
+             peaceful and ready. my breathing slowed and shoulders
+             feel light. i think i can start gently today
+Ambience   : ocean
+Duration   : 30
+Sleep      : 8.0
+Energy     : 5
+Stress     : 1
+Time       : morning
+Yesterday  : calm
+Expression : calm_face
+Clarity    : clear
+
+Expected
+  State      : calm
+  Activity   : deep_work
+  Confidence : 50-65%
+  When       : within_15_min
+
+----------------------------------------------------------------
+TEST 2 — Expected State: FOCUSED
+----------------------------------------------------------------
+Reflection : mountain session helped me think straight. i know
+             exactly what to do today. my mind is sharp and i
+             have a clear plan ready to execute right now
+Ambience   : mountain
+Duration   : 25
+Sleep      : 8.5
+Energy     : 5
+Stress     : 1
+Time       : morning
+Yesterday  : focused
+Expression : happy_face
+Clarity    : clear
+
+Expected
+  State      : focused
+  Activity   : deep_work
+  Confidence : 55-70%
+  When       : within_15_min
+
+----------------------------------------------------------------
+TEST 3 — Expected State: RESTLESS
+----------------------------------------------------------------
+Reflection : even after the rain session my mind keeps jumping
+             between tasks. i cannot sit still. thoughts are
+             racing and i keep wanting to switch to something else
+Ambience   : rain
+Duration   : 20
+Sleep      : 5.0
+Energy     : 4
+Stress     : 4
+Time       : afternoon
+Yesterday  : restless
+Expression : tense_face
+Clarity    : clear
+
+Expected
+  State      : restless
+  Activity   : movement
+  Confidence : 45-60%
+  When       : now or within_15_min
+
+----------------------------------------------------------------
+TEST 4 — Expected State: OVERWHELMED
+----------------------------------------------------------------
+Reflection : everything feels too heavy today. the forest session
+             helped a little but the pressure is still sitting
+             hard on me. i am carrying too much in my head and
+             cannot find where to start
+Ambience   : forest
+Duration   : 18
+Sleep      : 4.0
+Energy     : 1
+Stress     : 5
+Time       : night
+Yesterday  : overwhelmed
+Expression : tense_face
+Clarity    : clear
+
+Expected
+  State      : overwhelmed
+  Activity   : box_breathing or rest (safety override)
+  Confidence : 50-65%
+  When       : now or tonight
+
+----------------------------------------------------------------
+TEST 5 — Expected State: MIXED
+----------------------------------------------------------------
+Reflection : i feel both calm and unsettled after the cafe
+             session. like two moods sitting together at the same
+             time. part of me wants rest and part of me wants
+             action. i cannot tell which
+Ambience   : cafe
+Duration   : 20
+Sleep      : 6.0
+Energy     : 3
+Stress     : 3
+Time       : afternoon
+Yesterday  : mixed
+Expression : neutral_face
+Clarity    : conflicted
+
+Expected
+  State      : mixed
+  Activity   : journaling
+  Confidence : 30-45% (low — mixed is inherently ambiguous)
+  When       : later_today
+
+----------------------------------------------------------------
+TEST 6 — Expected State: NEUTRAL
+----------------------------------------------------------------
+Reflection : the rain track was fine. i feel steady, not
+             especially better or worse. nothing really shifted
+             but i feel fairly normal and grounded right now
+Ambience   : rain
+Duration   : 20
+Sleep      : 7.0
+Energy     : 3
+Stress     : 2
+Time       : afternoon
+Yesterday  : neutral
+Expression : neutral_face
+Clarity    : clear
+
+Expected
+  State      : neutral
+  Activity   : light_planning
+  Confidence : 45-58%
+  When       : within_15_min or later_today
+
+================================================================
+BONUS — UNCERTAINTY TEST CASES
+================================================================
+
+----------------------------------------------------------------
+TEST 7 — Short text (uncertain_flag should = 1)
+----------------------------------------------------------------
+Reflection : ok session
+Ambience   : rain
+Duration   : 12
+Sleep      : 7.0
+Energy     : 3
+Stress     : 2
+Time       : morning
+Yesterday  : neutral
+Expression : neutral_face
+Clarity    : vague
+
+Expected
+  Confidence   : less than 35%
+  Uncertain    : YES (flag = 1)
+  Reason       : text too short for model to extract signal
+
+----------------------------------------------------------------
+TEST 8 — Conflicting signals (uncertain_flag likely = 1)
+----------------------------------------------------------------
+Reflection : the forest session was calming. i feel more at ease
+             now. my breathing settled and mind feels quieter
+Ambience   : forest
+Duration   : 25
+Sleep      : 4.0
+Energy     : 1
+Stress     : 5
+Time       : night
+Yesterday  : overwhelmed
+Expression : tense_face
+Clarity    : conflicted
+
+Expected
+  State      : mixed or calm (model unsure)
+  Confidence : 25-40% (conflicting signals lower confidence)
+  Uncertain  : YES (flag = 1)
+  Reason     : calm text but stress=5, energy=1, sleep=4
+
+================================================================
+SUMMARY TABLE
+================================================================
+
+Test  State       Confidence  Activity          When
+----  ----------  ----------  ----------------  ---------------
+1     calm        50-65%      deep_work         within_15_min
+2     focused     55-70%      deep_work         within_15_min
+3     restless    45-60%      movement          now
+4     overwhelmed 50-65%      box_breathing     now / tonight
+5     mixed       30-45%      journaling        later_today
+6     neutral     45-58%      light_planning    within_15_min
+7     any         less 35%    any               any (uncertain)
+8     mixed/calm  25-40%      any               any (uncertain)
