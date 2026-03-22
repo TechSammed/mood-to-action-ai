@@ -429,20 +429,3 @@ Run with `--ablation` flag. Results saved to `reports/ablation_report.md`.
 | Bonus | FastAPI + Streamlit UI | `api.py` + `streamlit_app.py` |
 
 ---
-
-## 👨‍💻 Interview Preparation Notes
-
-**Q: Why XGBoost over a neural network?**
-XGBoost handles mixed tabular + text features naturally, trains fast, and gives reliable feature importance. A neural network would need more data and longer training to beat it here.
-
-**Q: Why regression for intensity instead of classification?**
-Intensity is ordinal. A classifier treats "predict 1, true 5" the same as "predict 1, true 2" — both are wrong by equal penalty. Regression naturally encodes that intensity=3 is closer to 4 than to 1.
-
-**Q: Why rule-based decision engine?**
-Transparency and safety. An ML decision layer could recommend "deep work" to someone with sleep=3, stress=5, energy=1. Rules prevent dangerous outputs and are auditable by product teams without retraining.
-
-**Q: Why is F1=0.594 acceptable?**
-The dataset has 6 semantically overlapping classes, many short ambiguous texts, and noisy labels. The uncertainty system correctly flags these borderline cases. In production, uncertain predictions would trigger a clarifying question to the user rather than a wrong recommendation.
-
-**Q: How does the system handle short texts like "ok session"?**
-The text length penalty in the uncertainty module drops the confidence multiplier to 0.55 for texts under 20 characters. This forces uncertain_flag=1, preventing the system from making confident wrong predictions based on minimal signal.
